@@ -1,0 +1,19 @@
+{
+  "name": "cal2slack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.1.0",
+    "ical": "^0.5.0",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
+    "twix": "^1.2.1"
+  }
+}
