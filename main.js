@@ -48,13 +48,14 @@ const sendMessageToSlack = async data => {
 };
 
 const processEvents = async () => {
-  const { CAL_URL, SLACK_CHANNEL, SLACK_EMOJI } = process.env;
+  const { CAL_URL, SLACK_CHANNEL, SLACK_EMOJI, HOUR_OFFSET } = process.env;
   if (!CAL_URL) {
     console.error("CAL_URL environment variable not defined");
     process.exit(-1);
   }
+  if (!HOUR_OFFSET) HOUR_OFFSET = "0";
   const events = await getEvents(CAL_URL);
-  const now = moment.now();
+  const now = moment().add(HOUR_OFFSET, "hours");
   const lines = [];
   for (const key in events) {
     const event = events[key];
@@ -67,7 +68,10 @@ const processEvents = async () => {
       lines.push(`${event.summary}    ${time}`);
     }
   }
-  let message = "Current Vacation Events:\n" + lines.join("\n");
+  let message =
+    "Current Vacation Events:\n" +
+    lines.join("\n") +
+    "\n<https://github.com/chpwssn/cal2slack|GitHub Source>";
   if (lines.length === 0) {
     message = "No Vacation events right now.";
   }
